@@ -17,6 +17,15 @@ module.exports = async (bot, message) => {
   const cmd =
     bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
+  // For commands who require an argument
+  if (cmd.args && !args.length) {
+    return message.reply(`You didn't provide any arguments, ${message.author}!`).then((m) =>
+      setTimeout(() => {
+        m.delete()
+      }, 5000)
+    )
+  }
+
   if (!cmd) return // If that command doesn't exist, silently exit and do nothing
 
   // -------------------- Command execution --------------------
