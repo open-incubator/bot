@@ -1,11 +1,8 @@
-const { MessageEmbed } = require('discord.js')
-
 module.exports = {
-  config: {
-    command: 'ping',
-  },
+  name: 'ping',
+  aliases: ['pong', 'play'],
 
-  run: async (bot, message, args) => {
+  async execute(bot, message, args) {
     message.delete()
 
     message.channel.send('Pingging...').then((m) => {

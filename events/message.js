@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js')
 const { prefix } = require('../config.json')
 
 module.exports = async (bot, message) => {
@@ -12,14 +11,15 @@ module.exports = async (bot, message) => {
 
   // Our standard argument/command name definition.
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
-  const command = args.shift().toLowerCase()
+  const commandName = args.shift().toLowerCase()
 
   // Grab the command data from the client Collection
-  const cmd = bot.commands.get(command) || bot.commands.get(bot.aliases.get(command))
+  const cmd =
+    bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
   if (!cmd) return // If that command doesn't exist, silently exit and do nothing
 
   // -------------------- Command execution --------------------
 
-  cmd.run(bot, message, args) // Run the command
+  cmd.execute(bot, message, args) // Run the command
 }
