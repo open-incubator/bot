@@ -11,6 +11,7 @@ module.exports = {
 
     message.channel
       .createInvite({
+        unique: true, // Create a new link each time
         maxAge: 0, // Perma link
         maxUses: 0, // Unlimited users
         reason: `ANALYTICS: ${args[0]} invitation link`,

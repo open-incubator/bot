@@ -8,6 +8,7 @@ const db = low(adapter)
 db.defaults({ links: [] }).write()
 
 // Add link
-exports.create = (inviteCode, name) => db.get('links').push({ code: inviteCode, name: name }).write()
+exports.create = (inviteCode, name) =>
+  db.get('links').push({ code: inviteCode, name: name, createdAt: new Date() }).write()
 
 exports.getAll = () => db.get('links').value()
