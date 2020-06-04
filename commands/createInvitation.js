@@ -1,5 +1,5 @@
 const logSymbols = require('log-symbols')
-const Invitations = require('../models/invitations')
+const { currentDate } = require('../utils/dateGenerator')
 
 module.exports = {
   name: 'createInvitation',
@@ -17,8 +17,7 @@ module.exports = {
         reason: `ANALYTICS: ${args[0]} invitation link`,
       })
       .then((invite) => {
-        Invitations.create(invite.code, args[0])
-        console.log(logSymbols.success, `New invitation created for ${args[0]} with the code: ${invite.code}`)
+        bot.inviteLinks.createLink(invite.code, args[0], currentDate())
       })
       .catch(console.error)
   },

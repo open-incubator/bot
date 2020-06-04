@@ -2,8 +2,13 @@ require('dotenv').config()
 
 const fs = require('fs')
 const { Client, Collection } = require('discord.js')
+const InviteLinks = require('./models/inviteLinks')
 
 const bot = new Client()
+
+// -------------------- Database local storage --------------------
+
+bot.inviteLinks = new InviteLinks()
 
 // -------------------- Commands handler --------------------
 

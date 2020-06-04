@@ -1,5 +1,5 @@
 const logSymbols = require('log-symbols')
-const Invitations = require('../models/invitations')
+// const Invitations = require('../models/invitations')
 
 module.exports = {
   name: 'listInvitationLinks',
