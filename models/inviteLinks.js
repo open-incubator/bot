@@ -29,7 +29,7 @@ class InviteLinks {
 
     this.state.push(linkObject)
 
-    db.get('links').push(linkObject).write()
+		db.set('links', this.state).write()
   }
 
   // Update link usage for a specific date
