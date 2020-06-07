@@ -1,24 +1,19 @@
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-
-const adapter = new FileSync('./data/invitations.json')
-const db = low(adapter)
-
-// Init the database if she's empty
-db.defaults({ links: [] }).write()
+const Datastore = require('nedb-promise')
+const links = new Datastore({filename: './data/invitations.json', autoload: true})
 
 class InviteLinks {
   constructor() {
-    this.state = this.getAll()
+    this.state = []
+		this.getAll().then(links => {this.state = links})
   }
 
   // Init the local state
-  getAll() {
-    return db.get('links').value()
+  async getAll() {
+    return await links.find({})
   }
 
   // Create a new link
-  createLink(inviteCode, name, date) {
+  async createLink(inviteCode, name, date) {
     const linkObject = {
       code: inviteCode,
       name: name,
@@ -29,7 +24,7 @@ class InviteLinks {
 
     this.state.push(linkObject)
 
-		db.set('links', this.state).write()
+		links.insert(linkObject)
   }
 
   // Update link usage for a specific date
